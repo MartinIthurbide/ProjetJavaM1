@@ -1,0 +1,3 @@
+Entities : Hotel, Voiture, Client, Ville
+ValueObject : ServiceHauteGamme, ServiceSimple, Vol
+Aggregate : Agence
