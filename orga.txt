@@ -1,3 +1,9 @@
 Entities : Hotel, Voiture, Client, Ville
 ValueObject : ServiceHauteGamme, ServiceSimple, Vol
 Aggregate : Agence
+
+- Liste des destinations avant de choisir
+- Gerer le cas des doublons pour les hotels et voitures
+- Sauvegarder les reservations de l'agence dans un fichier
+- Amelioration de l'UI
+- (JavaFX optionnel)
