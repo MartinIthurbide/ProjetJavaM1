@@ -90,7 +90,7 @@ public class Agence {
         // creer le client
         Client client = new Client(id,nom,prenom);
 
-        System.out.println("De quel Aéroport partez vous ?");
+        System.out.println("De quel Aéroport partez vous ? En majuscule");
         String aeroDep = sc.next();
         Ville depart = trouverVille(aeroDep);
         System.out.println("Voici les destinations possibles :");
@@ -129,11 +129,11 @@ public class Agence {
                     String voitureChoisi = sc.next();
                     Voiture maVoiture = vol.choisirVoiture(voitureChoisi);
                     Service monService = new ServiceSimple(monHotel,maVoiture);
-                    System.out.println(monService.getPrix());
                     Reservation reservation = new Reservation(vol,client,monService);
-                    System.out.println(reservation);
                     reservations.add(reservation);
                     System.out.println("Votre réservation a aboutit ! ");
+                    System.out.println("Voici le prix de votre réservation : ");
+                    System.out.println(reservation.getMontant());
                 }
             }
             if(service == 2){

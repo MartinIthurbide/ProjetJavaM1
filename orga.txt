@@ -2,6 +2,8 @@ Entities : Hotel, Voiture, Client, Ville
 ValueObject : ServiceHauteGamme, ServiceSimple, Vol
 Aggregate : Agence
 
+- Coder le service haut de gamme
+- rajouter le cas des majorations et 1er classes
 - Gerer le cas des doublons pour les hotels et voitures
 - Sauvegarder les reservations de l'agence dans un fichier
 - Amelioration de l'UI

@@ -66,7 +66,6 @@ public class Vol {
 
     public Hotel choisirHotel(String nomHotel){
         for (int i = 0; i < hotels.size(); i++) {
-            System.out.println(nomHotel);
             if (nomHotel.equals(hotels.get(i).getNom().toString()))
                 return hotels.get(i);
         }
