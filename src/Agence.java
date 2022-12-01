@@ -6,6 +6,23 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Agence {
     private String nom;
     private ArrayList<Reservation> reservations = new ArrayList<>();
+    private boolean[][] tabOfDestination = new boolean[][]{
+            {false,true,true,true,true},
+            {true,false,false,true,true},
+            {true,false,false,true,false},
+            {false,true,true,false,false},
+            {true,true,true,false,false}
+    };
+
+    public void listerDestinations(Ville depart, boolean[][] tab){
+        int positionDepart = depart.ordinal();
+        for (int i = 0; i < Ville.values().length; i++) {
+            if(tab[positionDepart][i] == true){
+                System.out.println(Ville.values()[i]);
+            }
+        }
+    }
+
 
     public ArrayList<String> proposerDates(int nbDates){
         ArrayList<String> dates = new ArrayList<>();
@@ -64,6 +81,7 @@ public class Agence {
     }
 
     public void ajouterReservation(){
+        System.out.println(tabOfDestination);
         Scanner sc = new Scanner(System.in);
         System.out.println("Quel est votre nom et votre prénom ?");
         String nom = sc.next();
@@ -76,6 +94,8 @@ public class Agence {
         System.out.println("De quel Aéroport partez vous ?");
         String aeroDep = sc.next();
         Ville depart = trouverVille(aeroDep);
+        System.out.println("Voici les destinations possibles :");
+        listerDestinations(depart,tabOfDestination);
         System.out.println("Quelle est la destination ?");
         String aeroArr = sc.next();
         Ville destination = trouverVille(aeroArr);
