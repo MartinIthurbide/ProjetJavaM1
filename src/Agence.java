@@ -81,7 +81,6 @@ public class Agence {
     }
 
     public void ajouterReservation(){
-        System.out.println(tabOfDestination);
         Scanner sc = new Scanner(System.in);
         System.out.println("Quel est votre nom et votre prénom ?");
         String nom = sc.next();
@@ -148,19 +147,19 @@ public class Agence {
     public Ville trouverVille(String ville){
         Ville laVille;
         switch (ville){
-            case "Bordeaux":
+            case "BORDEAUX":
                 laVille =  Ville.BORDEAUX;
                 break;
-            case "Paris":
+            case "PARIS":
                 laVille = Ville.PARIS;
                 break;
-            case "Delhi":
+            case "DELHI":
                 laVille = Ville.DELHI;
                 break;
-            case "Canberra":
+            case "CANBERRA":
                 laVille = Ville.CANBERRA;
                 break;
-            case "Tokyo":
+            case "TOKYO":
                 laVille = Ville.TOKYO;
                 break;
             default:
