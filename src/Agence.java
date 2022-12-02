@@ -43,12 +43,12 @@ public class Agence {
 
 
         for (int i = 0; i < nb; i++) {
-            NomHotel nomHotel;
-            do{
-                // TODO: Choisir des noms independants
-                 nomHotel = NomHotel.values()[new Random().nextInt(NomHotel.values().length)];
-            }
-            while (hotels.contains(nomHotel));
+
+            NomHotel nomHotel = NomHotel.values()[new Random().nextInt(NomHotel.values().length)];
+            do {
+                nomHotel = NomHotel.values()[new Random().nextInt(NomHotel.values().length)];
+            } while (hotels.toString().equals(nomHotel.name()));
+
             int prix = r.nextInt(high-low) + low;
             Hotel hotel = new Hotel(nomHotel,prix,destination,false);
             hotels.add(hotel);
@@ -66,11 +66,11 @@ public class Agence {
 
 
         for (int i = 0; i < nb; i++) {
-            NomVoiture nomVoiture;
+            NomVoiture nomVoiture = NomVoiture.values()[new Random().nextInt(NomVoiture.values().length)];            ;
              do{
                  // TODO: Choisir des noms independants
                  nomVoiture = NomVoiture.values()[new Random().nextInt(NomVoiture.values().length)];
-             }while (voitures.contains(nomVoiture));
+             }while (voitures.toString().equals(nomVoiture.name()));
             int prix = r.nextInt(high-low) + low;
             Voiture voiture = new Voiture(nomVoiture,prix,destination);
             voitures.add(voiture);
@@ -146,7 +146,7 @@ public class Agence {
 
     public Ville trouverVille(String ville){
         Ville laVille;
-        switch (ville){
+        switch (ville.toUpperCase()){
             case "BORDEAUX":
                 laVille =  Ville.BORDEAUX;
                 break;
