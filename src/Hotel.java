@@ -1,8 +1,8 @@
 public class Hotel {
-    private NomHotel nom;
-    private float prix;
-    private Ville ville;
-    private boolean majoration;
+    private final NomHotel nom;
+    private final float prix;
+    private final Ville ville;
+    private final boolean majoration;
 
     public Hotel(NomHotel nom, float prix,Ville ville, boolean majoration) {
         this.nom = nom;

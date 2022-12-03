@@ -9,4 +9,15 @@ public class Client {
         this.prenom = prenom;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
 }

@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Agence agence = new Agence();
-
+        agence.setPoolTickets(5);
         System.out.println("Bonjour et Bienvenu sur notre site de reservation de voyage !");
         while(true){
             // TODO: faire les menus

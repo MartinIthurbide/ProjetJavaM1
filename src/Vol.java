@@ -11,6 +11,7 @@ public class Vol {
     private ArrayList<Voiture> voitures;
     private int prix;
 
+
     public Vol(Ville depart, Ville destination, ArrayList<String> dates,ArrayList<Hotel> hotels,ArrayList<Voiture> voitures) {
         this.depart = depart;
         this.destination = destination;
@@ -23,6 +24,10 @@ public class Vol {
 
     public int getPrix() {
         return prix;
+    }
+
+    public void setPrixReduction(){
+        prix = (int) (prix*0.80);
     }
 
     public int setPrixRandom(){

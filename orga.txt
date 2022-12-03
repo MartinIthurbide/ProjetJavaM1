@@ -1,10 +1,12 @@
-Entities : Hotel, Voiture, Client, Ville
-ValueObject : ServiceHauteGamme, ServiceSimple, Vol
+Entities : Vol Service ServiceSimple ServiceHauteGamme Reservation
+ValueObject : Hotel Voiture Client // propriétés equals
 Aggregate : Agence
 
-- Coder le service haut de gamme
-- Faire un menu dans le main
-- rajouter le cas des majorations et 1er classes
+- probleme du prix d'un vol en fonction d'une date précise
+- afficher prix pour chaque dates, afficher la date choisi
+
+
 - Sauvegarder les reservations de l'agence dans un fichier
 - Amelioration de l'UI
+- Gérer les escales (en plus)
 - (JavaFX optionnel)

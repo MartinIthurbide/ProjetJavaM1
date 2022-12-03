@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Agence {
     private String nom;
     private ArrayList<Reservation> reservations = new ArrayList<>();
+    private int poolTickets;
     private boolean[][] tabOfDestination = new boolean[][]{
             {false,true,true,true,true},
             {true,false,false,true,true},
@@ -13,6 +14,8 @@ public class Agence {
             {false,true,true,false,false},
             {true,true,true,false,false}
     };
+    
+    
 
     public void listerDestinations(Ville depart, boolean[][] tab){
         int positionDepart = depart.ordinal();
@@ -45,9 +48,9 @@ public class Agence {
         for (int i = 0; i < nb; i++) {
 
             NomHotel nomHotel = NomHotel.values()[new Random().nextInt(NomHotel.values().length)];
-            do {
+            while (hotels.toString().contains(nomHotel.name())){
                 nomHotel = NomHotel.values()[new Random().nextInt(NomHotel.values().length)];
-            } while (hotels.toString().equals(nomHotel.name()));
+            }
 
             int prix = r.nextInt(high-low) + low;
             Hotel hotel = new Hotel(nomHotel,prix,destination,false);
@@ -67,10 +70,9 @@ public class Agence {
 
         for (int i = 0; i < nb; i++) {
             NomVoiture nomVoiture = NomVoiture.values()[new Random().nextInt(NomVoiture.values().length)];            ;
-             do{
-                 // TODO: Choisir des noms independants
+             while (voitures.toString().contains(nomVoiture.name())){
                  nomVoiture = NomVoiture.values()[new Random().nextInt(NomVoiture.values().length)];
-             }while (voitures.toString().equals(nomVoiture.name()));
+             }
             int prix = r.nextInt(high-low) + low;
             Voiture voiture = new Voiture(nomVoiture,prix,destination);
             voitures.add(voiture);
@@ -78,6 +80,10 @@ public class Agence {
 
         return voitures;
 
+    }
+
+    public void setPoolTickets(int poolTickets) {
+        this.poolTickets = poolTickets;
     }
 
     public void ajouterReservation(){
@@ -90,11 +96,13 @@ public class Agence {
         // creer le client
         Client client = new Client(id,nom,prenom);
 
-        System.out.println("De quel Aéroport partez vous ? En majuscule");
+        System.out.println("De quel Aéroport partez vous ?");
         String aeroDep = sc.next();
         Ville depart = trouverVille(aeroDep);
         System.out.println("Voici les destinations possibles :");
         listerDestinations(depart,tabOfDestination);
+        if(poolTickets > 0)
+            System.out.println("Vous disposez d'une réduction de 20% sur le prix du vol");
         System.out.println("Quelle est la destination ?");
         String aeroArr = sc.next();
         Ville destination = trouverVille(aeroArr);
@@ -107,6 +115,9 @@ public class Agence {
         System.out.println("Date validée");
         System.out.println("Desirez vous voyager en 1ere classe ? Oui ou Non");
         String premiereClasse = sc.next();
+        boolean boolPremClasse = false;
+        if(premiereClasse.equals("Oui"))
+            boolPremClasse = true;
         System.out.println("Prenez vous la formule avec service ? Oui ou Non");
         String reponse = sc.next();
         System.out.println(reponse);
@@ -123,23 +134,76 @@ public class Agence {
                 Hotel monHotel = vol.choisirHotel(hotelChoisi);
                 System.out.println("Prenez vous une voiture ? Oui ou Non");
                 String reponseVoiture = sc.next();
+                Service monService = new ServiceSimple(monHotel);
+
                 if(reponseVoiture.equals("Oui")){
                     System.out.println("Quel Voiture choisissez vous ?");
                     vol.afficherListeVoitures();
                     String voitureChoisi = sc.next();
                     Voiture maVoiture = vol.choisirVoiture(voitureChoisi);
-                    Service monService = new ServiceSimple(monHotel,maVoiture);
-                    Reservation reservation = new Reservation(vol,client,monService);
-                    reservations.add(reservation);
-                    System.out.println("Votre réservation a aboutit ! ");
-                    System.out.println("Voici le prix de votre réservation : ");
-                    System.out.println(reservation.getMontant());
+                    monService = new ServiceSimple(monHotel,maVoiture);
                 }
+                Reservation reservation = new Reservation(vol,client,monService,boolPremClasse);
+                if(premiereClasse.equals("Oui"))
+
+                reservations.add(reservation);
+                System.out.println("Votre réservation a aboutit ! ");
+                System.out.println("Voici le prix de votre réservation : ");
+                System.out.println(reservation.getMontant());
             }
             if(service == 2){
+                boolean boolVoit = false;
+                Voiture maPremiereVoiture = null;
+                System.out.println("Quel Hotel choisissez vous pour la premiere destination ?");
+                vol.afficherListeHotels();
+                String premierHotelChoisi = sc.next();
+                Hotel monPremierHotel = vol.choisirHotel(premierHotelChoisi);
+                System.out.println("Prenez vous une voiture pour rejoindre l'autre destination ? Oui ou Non");
+                String reponseVoiture = sc.next();
 
+                if(reponseVoiture.equals("Oui")){
+                    System.out.println("Quel Voiture choisissez vous ?");
+                    vol.afficherListeVoitures();
+                    String voitureChoisi = sc.next();
+                    maPremiereVoiture = vol.choisirVoiture(voitureChoisi);
+                    boolVoit = true;
+                }
+
+                System.out.println("Quel Hotel choisissez vous pour la deuxième destination ?");
+                vol.afficherListeHotels();
+                String deuxiemeHotelChoisi = sc.next();
+                Hotel monDeuxiemeHotel = vol.choisirHotel(deuxiemeHotelChoisi);
+                System.out.println("Prenez vous une voiture dans votre deuxième destination ? Oui ou Non");
+                reponseVoiture = sc.next();
+
+                Service monService = new ServiceHauteGamme(monPremierHotel,monDeuxiemeHotel);
+                if(boolVoit)
+                    monService = new ServiceHauteGamme(monPremierHotel,monDeuxiemeHotel,maPremiereVoiture);
+
+                if(reponseVoiture.equals("Oui")){
+                    System.out.println("Quel Voiture choisissez vous ?");
+                    vol.afficherListeVoitures();
+                    String voitureChoisi = sc.next();
+                    Voiture maDeuxiemeVoiture = vol.choisirVoiture(voitureChoisi);
+                    if(boolVoit)
+                        monService = new ServiceHauteGamme(monPremierHotel,monDeuxiemeHotel,maPremiereVoiture,maDeuxiemeVoiture);
+                    else
+                        monService = new ServiceHauteGamme(monPremierHotel,monDeuxiemeHotel,maDeuxiemeVoiture);
+                }
+                Reservation reservation = new Reservation(vol,client,monService,boolPremClasse);
+                reservations.add(reservation);
+                System.out.println("Votre réservation a aboutit ! ");
+                System.out.println("Voici le prix de votre réservation : ");
+                System.out.println(reservation.getMontant());
             }
 
+        }
+        if(reponse.equals("Non")){
+            Reservation reservation = new Reservation(vol,client,boolPremClasse);
+            reservations.add(reservation);
+            System.out.println("Votre réservation a aboutit ! ");
+            System.out.println("Voici le prix de votre réservation : ");
+            System.out.println(reservation.getMontant());
         }
 
     }
@@ -175,6 +239,12 @@ public class Agence {
 
 
         Vol vol = new Vol(depart,arrivee,dates,hotels,voitures);
+        System.out.println("prix avant reduc : "+vol.getPrix());
+        if(poolTickets > 0){
+            vol.setPrixReduction();
+            poolTickets--;
+            System.out.println("prix apres reduc : "+vol.getPrix());
+        }
         return vol;
     }
 

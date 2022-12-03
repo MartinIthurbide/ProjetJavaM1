@@ -1,7 +1,7 @@
 public class Voiture {
-    private NomVoiture nom;
-    private float prix;
-    private Ville ville;
+    private final NomVoiture nom;
+    private final float prix;
+    private final Ville ville;
 
     public Voiture(NomVoiture nom, float prix, Ville ville) {
         this.nom = nom;

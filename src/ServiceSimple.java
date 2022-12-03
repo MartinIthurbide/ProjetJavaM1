@@ -9,8 +9,15 @@ public class ServiceSimple extends Service{
         this.voiture = voiture;
     }
 
+    public ServiceSimple(Hotel hotel){
+        this.hotel = hotel;
+    }
+
     public float getPrix() {
-        prix = hotel.getPrix()+ voiture.getPrix();
+        prix = hotel.getPrix();
+        if(voiture != null){
+            prix += voiture.getPrix();
+        }
         return prix;
     }
 }
