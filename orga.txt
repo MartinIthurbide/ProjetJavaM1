@@ -2,6 +2,7 @@ Entities : Vol Service ServiceSimple ServiceHauteGamme Reservation
 ValueObject : Hotel Voiture Client // propriétés equals
 Aggregate : Agence
 
+- On baisse le prix jusqu'à l'escale si le client en prend une.
 - probleme du prix d'un vol en fonction d'une date précise
 - afficher prix pour chaque dates, afficher la date choisi
 

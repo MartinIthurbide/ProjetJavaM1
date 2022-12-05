@@ -5,7 +5,7 @@ public class Reservation {
     private boolean premiereClasse;
     private float montant;
 
-    public Reservation(Vol vol, Client client, boolean premiereClasse){
+    public Reservation(Vol vol, Client client, boolean premiereClasse){ //TODO: Rajouter la date du vol choisi
         this.vol = vol;
         this.client = client;
         this.premiereClasse = premiereClasse;
@@ -32,4 +32,15 @@ public class Reservation {
         return montant;
     }
 
+    public Vol getVol() {
+        return vol;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public Service getService() {
+        return service;
+    }
 }

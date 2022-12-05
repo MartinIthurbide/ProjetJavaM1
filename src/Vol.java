@@ -37,6 +37,10 @@ public class Vol {
         return r.nextInt(high-low) + low;
     }
 
+    public void setPrixEscale(){
+        prix += setPrixRandom()/2;
+    }
+
     public Ville getDestination() {
         return destination;
     }
@@ -69,20 +73,24 @@ public class Vol {
         }
     }
 
-    public Hotel choisirHotel(String nomHotel){
+    public Hotel choisirHotel(String nomHotel) throws Exception{
         for (int i = 0; i < hotels.size(); i++) {
             if (nomHotel.equals(hotels.get(i).getNom().toString()))
                 return hotels.get(i);
         }
-        return null;
+        {
+            throw new Exception("Aucun hotel ne correspond");
+        }
     }
 
-    public Voiture choisirVoiture(String nomVoiture){
+    public Voiture choisirVoiture(String nomVoiture) throws Exception{
         for (int i = 0; i < voitures.size(); i++) {
             if (nomVoiture.equals(voitures.get(i).getNom().toString())) {
                 return voitures.get(i);
             }
         }
-        return null;
+        {
+            throw new Exception("Aucune voiture ne correspond");
+        }
     }
 }
