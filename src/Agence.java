@@ -348,4 +348,16 @@ public class Agence {
         else
             System.out.println("Pas encore de reservation");
     }
+
+    @Override
+    public String toString() {
+    StringBuffer sb = new StringBuffer();
+    sb.append("{");
+    sb.append(this.nom + ";");
+    for (Reservation reservation : reservations) {
+        sb.append(reservation.toString());
+    }
+    sb.append("}\n");
+    return sb.toString();
+}
 }

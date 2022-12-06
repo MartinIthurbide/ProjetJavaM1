@@ -43,4 +43,13 @@ public class Reservation {
     public Service getService() {
         return service;
     }
+
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("[");
+        //TODO:Completer
+        sb.append("]");
+        return sb.toString();
+    }
 }
