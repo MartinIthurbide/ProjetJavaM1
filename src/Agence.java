@@ -354,10 +354,21 @@ public class Agence {
     public String toString() {
     StringBuffer sb = new StringBuffer();
     sb.append("{");
-    sb.append(this.nom + ";");
+    sb.append(this.nom + ";\n");
+
+    // Reservations
     for (Reservation reservation : reservations) {
         sb.append(reservation.toString());
     }
+
+    // Separateur
+    sb.append("\n|\n");
+
+    // Vol
+    for (Vol v : vols) {
+        sb.append(v.toString())
+    }
+
     sb.append("}\n");
     return sb.toString();
 }

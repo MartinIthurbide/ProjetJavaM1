@@ -55,7 +55,14 @@ public class Reservation {
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append("[");
-        //TODO:Completer
+        //TODO:Reste Depart Dest Date Montant Service
+        sb.append(this.getClient().toString() + ",");
+        sb.append(this.getVol().getDepart().toString() + ",");
+        sb.append(this.getVol().getDestination().toString() + ",");
+        sb.append(this.getDate().toString() + ",");
+        sb.append(this.getMontant() + ",");
+        sb.append(this.getService().toString() + ",");
+
         sb.append("]");
         return sb.toString();
     }
