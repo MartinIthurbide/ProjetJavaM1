@@ -372,4 +372,28 @@ public class Agence {
     sb.append("}\n");
     return sb.toString();
 }
+
+    public void consulterReservation() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Entrez votre nom et votre prénom :");
+        String nom = sc.next();
+        String prenom = sc.next();
+        boolean client = false;
+
+        for (Reservation res:reservations) {
+            if(res.getClient().getPrenom().equals(prenom) && res.getClient().getNom().equals(nom)) {
+                client = true;
+                System.out.println("[Client : ID : " + res.getClient().getId()
+                        + " Prenom : " + res.getClient().getPrenom()
+                        + " Nom : " + res.getClient().getNom()
+                        + ",Vol : " + res.getVol().getDepart() + "/" + res.getVol().getDestination()
+                        + ",Date : " + res.getDate()
+                        + ",Prix : " + res.getMontant() + "€");
+            }
+        }
+        if(!client)
+            System.out.println("Vous n'existez pas !!");
+
+
+    }
 }

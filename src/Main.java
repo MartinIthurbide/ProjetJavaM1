@@ -26,7 +26,7 @@ public class Main {
                     agence.ajouterReservation();
                     break;
                 case 2:
-                    System.out.println("Pas encore implémenté");
+                    agence.consulterReservation();
                     break;
                 case 3:
                     agence.listerReservations();
