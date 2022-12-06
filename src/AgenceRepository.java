@@ -8,16 +8,26 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class AgenceRepository {
-    private ArrayList<Agence> agences = new ArrayList<>();
+    private ArrayList<Agence> agences;
     private static BufferedReader b = new BufferedReader(new InputStreamReader(System.in));
 
+    public AgenceRepository() {
+        agences = new ArrayList<>();
+    }
+    
+    public void addAgence(Agence a) {
+        agences.add(a);
+    }
+
     public int save() throws IOException {
+        System.out.println("Donner un nom à votre sauvegarde :");
         String saveName = b.readLine();
         File f = new File("../save/" + saveName + ".mysave");
         if(f.exists()) {
             System.out.println("This name already exists for the save, delete old save or change name");
             return -1;
         }
+
         boolean created = f.createNewFile();
         if(!created) {
             System.err.println("Error during file creation");
