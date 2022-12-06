@@ -3,6 +3,8 @@ public class ServiceHauteGamme extends Service{
     private Voiture premiereVoiture,deuxiemeVoiture;
     private float prix;
 
+
+
     public ServiceHauteGamme(Hotel premierHotel, Hotel deuxiemeHotel){
         this.premierHotel = premierHotel;
         this.deuxiemeHotel = deuxiemeHotel;
@@ -19,6 +21,11 @@ public class ServiceHauteGamme extends Service{
         this.deuxiemeHotel = deuxiemeHotel;
         this.premiereVoiture = premiereVoiture;
         this.deuxiemeVoiture = deuxiemeVoiture;
+    }
+
+    @Override
+    public boolean typeService() {
+        return false;
     }
 
     @Override
