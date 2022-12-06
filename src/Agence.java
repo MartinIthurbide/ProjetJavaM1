@@ -366,7 +366,7 @@ public class Agence {
 
     // Vol
     for (Vol v : vols) {
-        sb.append(v.toString())
+        sb.append(v.toString());
     }
 
     sb.append("}\n");
