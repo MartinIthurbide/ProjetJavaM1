@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Agence agence = new Agence();
-        agence.setPoolTickets(5);
+        agence.genererVols();
         System.out.println("Bonjour et Bienvenue sur notre site de reservation de voyage !");
         loop : while(true){
             // TODO: faire les menus

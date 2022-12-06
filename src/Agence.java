@@ -6,7 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Agence {
     private String nom;
     private ArrayList<Reservation> reservations = new ArrayList<>();
-    private int poolTickets;
+    private ArrayList<Vol> vols = new ArrayList<>();
     private boolean[][] tabOfDestination = new boolean[][]{
             {false,true,true,true,true},
             {true,false,false,true,true},
@@ -21,6 +21,27 @@ public class Agence {
         for (int i = 0; i < Ville.values().length; i++) {
             if(!Ville.values()[i].equals(depart))
                 System.out.println(Ville.values()[i]);
+        }
+    }
+
+    public void genererVols(){
+        for(Ville depart : Ville.values()){
+            for(Ville destination : Ville.values())
+            vols.add(new Vol(depart,destination,
+                    proposerDates(5),
+                    proposerHotel(5,destination),
+                    proposerVoitures(5,destination),
+                    5));
+        }
+    }
+
+    Vol choisirVol(Ville depart, Ville destination) throws Exception{
+        for (Vol vol: vols) {
+            if(vol.getDestination().equals(destination) && vol.getDepart().equals(depart))
+                return vol;
+        }
+        {
+            throw new Exception("Probleme : pas les bonnes villes");
         }
     }
 
@@ -106,10 +127,6 @@ public class Agence {
 
     }
 
-    public void setPoolTickets(int poolTickets) {
-        this.poolTickets = poolTickets;
-    }
-
     public void ajouterReservation(){
         Scanner sc = new Scanner(System.in);
         try {
@@ -126,13 +143,11 @@ public class Agence {
             Ville depart = trouverVille(aeroDep);
             System.out.println("Voici les destinations possibles :");
             listerDestinations(depart);
-            if (poolTickets > 0)
-                System.out.println("Vous disposez d'une réduction de 20% sur le prix du vol");
             System.out.println("Quelle est la destination ?");
             String aeroArr = sc.next();
             Ville destination = trouverVille(aeroArr);
             Ville escale = choisirEscale(depart, destination, tabOfDestination);
-            Vol vol = creerVol(depart, destination, escale);
+            Vol vol = creerVol(depart,destination,escale);
             System.out.println("Le prix pour ce vol est de " + vol.getPrix() + " euros");
             System.out.println("Voici les dates proposées pour cette destination :");
             System.out.println(vol.getDates());
@@ -299,19 +314,18 @@ public class Agence {
         return laVille;
     }
 
-    public Vol creerVol(Ville depart, Ville arrivee, Ville escale){
-        ArrayList<String> dates = proposerDates(5);
-        ArrayList<Hotel> hotels =  proposerHotel(5,arrivee);
-        ArrayList<Voiture> voitures = proposerVoitures(5,arrivee);
-
-
-        Vol vol = new Vol(depart,arrivee,dates,hotels,voitures);
+    public Vol creerVol(Ville depart, Ville arrivee, Ville escale) throws Exception {
+        Vol vol = choisirVol(depart,arrivee);
         if(escale != arrivee)
             vol.setPrixEscale();
         System.out.println("prix avant reduc : "+vol.getPrix());
-        if(poolTickets > 0){
+        int myPoolTicket = vol.getPoolTicket();
+        System.out.println("myPoolTicket : "+myPoolTicket);
+        if(myPoolTicket > 0){
+            System.out.println("Vous disposez d'une réduction de 20% sur le prix du vol");
             vol.setPrixReduction();
-            poolTickets--;
+            vol.reducePoolTicket();
+            System.out.println("poolTicket : "+vol.getPoolTicket());
             System.out.println("prix apres reduc : "+vol.getPrix());
         }
         return vol;

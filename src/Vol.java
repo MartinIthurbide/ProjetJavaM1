@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Vol {
 
@@ -10,16 +11,17 @@ public class Vol {
     private ArrayList<Hotel> hotels;
     private ArrayList<Voiture> voitures;
     private int prix;
+    private int poolTicket;
 
 
-    public Vol(Ville depart, Ville destination, ArrayList<String> dates,ArrayList<Hotel> hotels,ArrayList<Voiture> voitures) {
+    public Vol(Ville depart, Ville destination, ArrayList<String> dates,ArrayList<Hotel> hotels,ArrayList<Voiture> voitures, int poolTicket) {
         this.depart = depart;
         this.destination = destination;
         this.dates = dates;
         this.hotels = hotels;
         this.voitures = voitures;
         this.prix = setPrixRandom();
-
+        this.poolTicket = poolTicket;
     }
 
     public int getPrix() {
@@ -44,6 +46,8 @@ public class Vol {
     public Ville getDestination() {
         return destination;
     }
+
+    public Ville getDepart() {return depart;}
 
     public ArrayList<String> getDates() {
         return dates;
@@ -74,23 +78,37 @@ public class Vol {
     }
 
     public Hotel choisirHotel(String nomHotel) throws Exception{
+        Scanner sc = new Scanner(System.in);
         for (int i = 0; i < hotels.size(); i++) {
-            if (nomHotel.equals(hotels.get(i).getNom().toString()))
+            if (nomHotel.toUpperCase().equals(hotels.get(i).getNom().toString().toUpperCase()))
                 return hotels.get(i);
         }
         {
-            throw new Exception("Aucun hotel ne correspond");
+            System.out.println("Pas d'hotel correspondant, veuillez ressaisir : ");
+            String nvHotel = sc.next();
+            return choisirHotel(nvHotel);
         }
     }
 
     public Voiture choisirVoiture(String nomVoiture) throws Exception{
+        Scanner sc = new Scanner(System.in);
         for (int i = 0; i < voitures.size(); i++) {
             if (nomVoiture.equals(voitures.get(i).getNom().toString())) {
                 return voitures.get(i);
             }
         }
         {
-            throw new Exception("Aucune voiture ne correspond");
+            System.out.println("Pas d'hotel correspondant, veuillez ressaisir : ");
+            String nvVoiture = sc.next();
+            return choisirVoiture(nvVoiture);
         }
+    }
+
+    public void reducePoolTicket() {
+        this.poolTicket--;
+    }
+
+    public int getPoolTicket() {
+        return poolTicket;
     }
 }
