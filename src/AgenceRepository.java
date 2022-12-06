@@ -24,16 +24,16 @@ public class AgenceRepository {
         String saveName = b.readLine();
         File f = new File("../save/" + saveName + ".mysave");
         if(f.exists()) {
-            System.out.println("This name already exists for the save, delete old save or change name");
+            System.out.println("Ce nom de sauvegarde existe déjà, veuillez changer ou supprimer l'ancienne sauvegarde !");
             return -1;
         }
 
         boolean created = f.createNewFile();
         if(!created) {
-            System.err.println("Error during file creation");
+            System.err.println("Erreur pendant la création du fichier");
             return -1;
         }
-        System.out.println("File --> " + f.getName() + " has been created");
+        System.out.println("Le fichier --> " + f.getName() + " a bien été crée");
         FileWriter fw = new FileWriter(f.getAbsoluteFile());
         BufferedWriter bw = new BufferedWriter(fw);
         bw.write(agences.size() + "\n");
@@ -42,32 +42,32 @@ public class AgenceRepository {
         }
         bw.close();
         fw.close();
-        System.out.println("Save complete !");
+        System.out.println("Sauvegarde terminée !");
         return 0;
     }
 
     public int load() throws IOException {
         // Invite and creation
-        System.out.println("Type the name of the file you want to load :");
+        System.out.println("Ecris le nom de la sauvegarde que vous voulez récuperer :");
         String fileToLoad = b.readLine();
 
         File f = new File("../save/" + fileToLoad);
 
         // File doesn't exist
         if(!f.exists()) {
-            System.err.println("This file doesn't exist");
+            System.err.println("Ce fichier de sauvegarde n'existe pas");
         }
 
         // Invalid name or doesn't have right to read
         if(!f.getName().endsWith(".mysave") || !f.canRead()) {
-            System.err.println("This file cannot be loaded. The file name needs to end with .mysave or you may not have read rights");
+            System.err.println("Ce fichier ne peut pas être récupéré. Le fichier doit finir par .mysave ou vous n'avez peut être pas les droits de lecture sur ce fichier");
         }
 
         FileReader fr = new FileReader(f);
         BufferedReader br = new BufferedReader(fr);
 
         if(br == null ||fr == null) {
-            System.err.println("Allocation failed");
+            System.err.println("Erreur durant l'allocation");
         }
 
         // LOAD PART
@@ -77,6 +77,9 @@ public class AgenceRepository {
 
         //TODO:next
 
+        br.close();
+        fr.close();
+        System.out.println("Récupération terminée");
         return 0;
     }
 }
