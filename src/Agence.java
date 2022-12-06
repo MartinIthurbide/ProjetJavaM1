@@ -203,9 +203,8 @@ public class Agence {
                         Voiture maVoiture = vol.choisirVoiture(voitureChoisi);
                         monService = new ServiceSimple(monHotel, maVoiture);
                     }
-                    Reservation reservation = new Reservation(vol,date, client, monService, boolPremClasse);
-                    if (premiereClasse.equals("Oui"))
-                        reservations.add(reservation);
+                    Reservation reservation = new Reservation(vol,date, client, monService, boolPremClasse,escale);
+                    reservations.add(reservation);
                     System.out.println("Votre réservation a aboutit ! ");
                     System.out.println("Voici le prix de votre réservation : ");
                     System.out.println(reservation.getMontant());
@@ -257,7 +256,7 @@ public class Agence {
                         else
                             monService = new ServiceHauteGamme(monPremierHotel, monDeuxiemeHotel, maDeuxiemeVoiture);
                     }
-                    Reservation reservation = new Reservation(vol,date, client, monService, boolPremClasse);
+                    Reservation reservation = new Reservation(vol,date, client, monService, boolPremClasse,escale);
                     reservations.add(reservation);
                     System.out.println("Votre réservation a aboutit ! ");
                     System.out.println("Voici le prix de votre réservation : ");
@@ -266,7 +265,7 @@ public class Agence {
 
             }
             if (reponse.equals("Non")) {
-                Reservation reservation = new Reservation(vol,date, client, boolPremClasse);
+                Reservation reservation = new Reservation(vol,date, client, boolPremClasse,escale);
                 reservations.add(reservation);
                 System.out.println("Votre réservation a aboutit ! ");
                 System.out.println("Voici le prix de votre réservation : ");
@@ -338,12 +337,7 @@ public class Agence {
     public void listerReservations(){
         if (getNbReservations() > 0) {
             for (Reservation res : reservations) {
-                System.out.println("[Client : ID : " + res.getClient().getId()
-                        +" Prenom : "+res.getClient().getPrenom()
-                        +" Nom : "+ res.getClient().getNom()
-                        + ",Vol : " +res.getVol().getDepart()+"/"+res.getVol().getDestination()
-                        + ",Date : "+res.getDate()
-                        + ",Prix : "+res.getMontant()+"€");
+                afficherReservation(res);
             }
         }
         else
@@ -383,17 +377,37 @@ public class Agence {
         for (Reservation res:reservations) {
             if(res.getClient().getPrenom().equals(prenom) && res.getClient().getNom().equals(nom)) {
                 client = true;
-                System.out.println("[Client : ID : " + res.getClient().getId()
-                        + " Prenom : " + res.getClient().getPrenom()
-                        + " Nom : " + res.getClient().getNom()
-                        + ",Vol : " + res.getVol().getDepart() + "/" + res.getVol().getDestination()
-                        + ",Date : " + res.getDate()
-                        + ",Prix : " + res.getMontant() + "€");
+                afficherReservation(res);
             }
         }
         if(!client)
             System.out.println("Vous n'existez pas !!");
 
 
+    }
+
+    public void afficherReservation(Reservation res){
+        System.out.println("##################");
+        System.out.println("Client : ID : " + res.getClient().getId());
+        System.out.println(" Prenom : " + res.getClient().getPrenom());
+        System.out.println(", Nom : " + res.getClient().getNom());
+
+        System.out.println(" ");
+
+        System.out.println("Vol : Depart : "+res.getVol().getDepart());
+        System.out.println("Destination : " + res.getVol().getDestination());
+        if(!res.getEscale().equals(res.getVol().getDestination()))
+            System.out.println("Escale : "+res.getEscale());
+        System.out.println("Premiere classe : "+res.isPremiereClasse());
+        System.out.println("Date : "+res.getDate());
+        System.out.println("Prix : "+res.getMontant()+"€");
+
+        System.out.println(" ");
+
+        if(res.getService() instanceof ServiceSimple)
+            System.out.println("Service : Service Simple");
+        if(res.getService() instanceof ServiceHauteGamme)
+            System.out.println("Service : Service de Haute Gamme");
+        System.out.println("##################");
     }
 }

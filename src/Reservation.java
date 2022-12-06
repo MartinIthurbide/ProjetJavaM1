@@ -4,12 +4,14 @@ public class Reservation {
     private String date;
     private Service service;
     private boolean premiereClasse;
+    private Ville escale;
     private float montant;
 
-    public Reservation(Vol vol,String date, Client client, boolean premiereClasse){
+    public Reservation(Vol vol,String date, Client client, boolean premiereClasse,Ville escale){
         this.vol = vol;
         this.date = date;
         this.client = client;
+        this.escale = escale;
         this.premiereClasse = premiereClasse;
         if (this.premiereClasse == true){
             this.montant = (float) ((vol.getPrix()*1.30));
@@ -18,11 +20,12 @@ public class Reservation {
             this.montant = vol.getPrix();
     }
 
-    public Reservation(Vol vol,String date, Client client, Service service,boolean premiereClasse) {
+    public Reservation(Vol vol,String date, Client client, Service service,boolean premiereClasse,Ville escale) {
         this.vol = vol;
         this.date = date;
         this.client = client;
         this.service = service;
+        this.escale = escale;
         this.premiereClasse = premiereClasse;
         if (this.premiereClasse == true){
             this.montant = (float) ((vol.getPrix()*1.30)+ service.getPrix());
@@ -50,6 +53,10 @@ public class Reservation {
     public String getDate(){
         return date;
     }
+
+    public boolean isPremiereClasse() {return premiereClasse;}
+
+    public Ville getEscale() {return escale;}
 
     @Override
     public String toString() {
