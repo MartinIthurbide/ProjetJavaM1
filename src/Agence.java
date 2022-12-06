@@ -15,7 +15,9 @@ public class Agence {
             {true,true,true,false,false}
     };
     
-    
+    public Agence(String nom){
+        this.nom = nom;
+    }
 
     public void listerDestinations(Ville depart){
         for (int i = 0; i < Ville.values().length; i++) {
@@ -27,11 +29,13 @@ public class Agence {
     public void genererVols(){
         for(Ville depart : Ville.values()){
             for(Ville destination : Ville.values())
-            vols.add(new Vol(depart,destination,
-                    proposerDates(5),
-                    proposerHotel(5,destination),
-                    proposerVoitures(5,destination),
-                    5));
+                if(!depart.equals(destination)) {
+                    vols.add(new Vol(depart, destination,
+                            proposerDates(5),
+                            proposerHotel(5, destination),
+                            proposerVoitures(5, destination),
+                            5));
+                }
         }
     }
 
@@ -383,9 +387,9 @@ public class Agence {
 
         System.out.println(" ");
 
-        if(res.getService() instanceof ServiceSimple)
+        if(res.getService().typeService())
             System.out.println("Service : Service Simple");
-        if(res.getService() instanceof ServiceHauteGamme)
+        if(!res.getService().typeService())
             System.out.println("Service : Service de Haute Gamme");
         System.out.println("##################");
     }

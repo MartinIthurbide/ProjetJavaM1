@@ -13,6 +13,11 @@ public class ServiceSimple extends Service{
         this.hotel = hotel;
     }
 
+    @Override
+    public boolean typeService() {
+        return true;
+    }
+
     public float getPrix() {
         prix = hotel.getPrix();
         if(voiture != null){

@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         AgenceRepository agRep = new AgenceRepository();
-        Agence agence = new Agence();
+        Agence agence = new Agence("TravellingAdventure");
         agence.genererVols();
         agRep.addAgence(agence);
         System.out.println("Bonjour et Bienvenue sur notre site de reservation de voyage !");
