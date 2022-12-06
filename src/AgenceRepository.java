@@ -79,8 +79,27 @@ public class AgenceRepository {
         int nbAgences = 0;
         String line = br.readLine();
         nbAgences = Integer.parseInt(line);
-
         //TODO:next
+        int currentAg = 0;
+        loop : while((line = br.readLine()) != null) {
+            if(line.equals("}")) {
+                currentAg++;
+                //TODO: GO NEXT agence
+                continue loop; 
+            }
+
+
+            // nom
+            int index;
+            index = line.indexOf(';');
+            String nom = line.substring(1, index);
+
+            
+            // Reservations
+            while(!(line = br.readLine()).equals("|")) {
+                
+            }
+        }
 
         br.close();
         fr.close();
