@@ -111,4 +111,40 @@ public class Vol {
     public int getPoolTicket() {
         return poolTicket;
     }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        StringBuilder sb = new StringBuilder();
+        sb.append("Vol:" + this.depart + "," + this.destination + ",");
+        sb.append(this.poolTicket + "," + this.prix + ",");
+        sb.append("[");
+        for (String s : dates) {
+            sb.append(s);
+            if(dates.indexOf((String)s) != dates.size() - 1) {
+                sb.append("#");
+            } 
+        }
+        sb.append("],");
+
+        sb.append("[");
+        for (Hotel h : hotels) {
+            sb.append(h.toString());
+            if(hotels.indexOf((Hotel)h) != hotels.size() - 1) {
+                sb.append("#");
+            } 
+        }
+        sb.append("],");
+        
+        sb.append("[");
+        for (Voiture v : voitures) {
+            sb.append(v.toString());
+            if(voitures.indexOf((Voiture)v) != voitures.size() - 1) {
+                sb.append("#");
+            } 
+        }
+        sb.append("]");
+
+        return sb.toString();
+    }
 }

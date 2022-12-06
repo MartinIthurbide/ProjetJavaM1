@@ -24,4 +24,18 @@ public class Hotel {
     public Ville getVille() {
         return ville;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("(Hotel:" + nom + "," + prix + "," + ville.toString() + ",");
+        if(majoration) {
+            sb.append("O");
+        }
+        else {
+            sb.append("N");
+        }
+        sb.append(")");
+        return sb.toString();
+    }
 }

@@ -344,28 +344,7 @@ public class Agence {
             System.out.println("Pas encore de reservation");
     }
 
-    @Override
-    public String toString() {
-    StringBuffer sb = new StringBuffer();
-    sb.append("{");
-    sb.append(this.nom + ";\n");
 
-    // Reservations
-    for (Reservation reservation : reservations) {
-        sb.append(reservation.toString());
-    }
-
-    // Separateur
-    sb.append("\n|\n");
-
-    // Vol
-    for (Vol v : vols) {
-        sb.append(v.toString());
-    }
-
-    sb.append("}\n");
-    return sb.toString();
-}
 
     public void consulterReservation() {
         Scanner sc = new Scanner(System.in);
@@ -409,5 +388,28 @@ public class Agence {
         if(res.getService() instanceof ServiceHauteGamme)
             System.out.println("Service : Service de Haute Gamme");
         System.out.println("##################");
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("{");
+        sb.append(this.nom + ";\n");
+
+        // Reservations
+        for (Reservation reservation : reservations) {
+            sb.append(reservation.toString());
+        }
+
+        // Separateur
+        sb.append("\n|\n");
+
+        // Vol
+        for (Vol v : vols) {
+            sb.append(v.toString()+ "\n");
+        }
+
+        sb.append("}\n");
+        return sb.toString();
     }
 }

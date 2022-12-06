@@ -12,6 +12,7 @@ public class Reservation {
         this.date = date;
         this.client = client;
         this.escale = escale;
+        this.service = null;
         this.premiereClasse = premiereClasse;
         if (this.premiereClasse == true){
             this.montant = (float) ((vol.getPrix()*1.30));
@@ -62,13 +63,20 @@ public class Reservation {
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append("[");
-        //TODO:Reste Depart Dest Date Montant Service
+
         sb.append(this.getClient().toString() + ",");
+        if(this.premiereClasse) {
+            sb.append("premiere,");
+        }
+        else {
+            sb.append("eco,");
+        }
         sb.append(this.getVol().getDepart().toString() + ",");
         sb.append(this.getVol().getDestination().toString() + ",");
         sb.append(this.getDate().toString() + ",");
-        sb.append(this.getMontant() + ",");
-        sb.append(this.getService().toString() + ",");
+        sb.append(this.getMontant());
+        if(this.service != null)
+            sb.append("," + this.getService().toString());
 
         sb.append("]");
         return sb.toString();

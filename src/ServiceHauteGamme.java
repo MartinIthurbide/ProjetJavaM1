@@ -32,4 +32,30 @@ public class ServiceHauteGamme extends Service{
             prix += deuxiemeVoiture.getPrix();;
         return prix;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        int cnt = 0;
+        if(premierHotel != null && deuxiemeHotel != null)
+            cnt += 2;
+        if(premiereVoiture != null)
+            cnt++;
+        if(deuxiemeVoiture != null)
+            cnt++;
+        sb.append("ServiceHauteGamme" + cnt + "(");
+        if (cnt>=2) {
+            sb.append(premierHotel.toString());
+            sb.append(deuxiemeHotel.toString());
+        }
+        if(cnt >= 3) {
+            sb.append(premiereVoiture.toString());
+        }
+        if(cnt == 4) {
+            sb.append(deuxiemeVoiture.toString());
+        }
+
+        sb.append(")");
+        return sb.toString();
+    }
 }

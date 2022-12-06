@@ -20,4 +20,14 @@ public class ServiceSimple extends Service{
         }
         return prix;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ServiceSimple:" + hotel.toString());
+        if(voiture != null) {
+            sb.append("," + voiture.toString());
+        }
+        return sb.toString();
+    }
 }

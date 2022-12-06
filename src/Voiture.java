@@ -20,4 +20,11 @@ public class Voiture {
     public NomVoiture getNom() {
         return nom;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("(Voiture:" + nom + "," + prix + "," + ville.toString() + ")");
+        return sb.toString();
+    }
 }
