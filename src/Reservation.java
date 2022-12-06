@@ -1,12 +1,14 @@
 public class Reservation {
     private Vol vol;
     private Client client;
+    private String date;
     private Service service;
     private boolean premiereClasse;
     private float montant;
 
-    public Reservation(Vol vol, Client client, boolean premiereClasse){ //TODO: Rajouter la date du vol choisi
+    public Reservation(Vol vol,String date, Client client, boolean premiereClasse){
         this.vol = vol;
+        this.date = date;
         this.client = client;
         this.premiereClasse = premiereClasse;
         if (this.premiereClasse == true){
@@ -16,8 +18,9 @@ public class Reservation {
             this.montant = vol.getPrix();
     }
 
-    public Reservation(Vol vol, Client client, Service service,boolean premiereClasse) {
+    public Reservation(Vol vol,String date, Client client, Service service,boolean premiereClasse) {
         this.vol = vol;
+        this.date = date;
         this.client = client;
         this.service = service;
         this.premiereClasse = premiereClasse;
@@ -42,6 +45,10 @@ public class Reservation {
 
     public Service getService() {
         return service;
+    }
+
+    public String getDate(){
+        return date;
     }
 
     @Override

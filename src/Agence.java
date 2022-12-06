@@ -203,7 +203,7 @@ public class Agence {
                         Voiture maVoiture = vol.choisirVoiture(voitureChoisi);
                         monService = new ServiceSimple(monHotel, maVoiture);
                     }
-                    Reservation reservation = new Reservation(vol, client, monService, boolPremClasse);
+                    Reservation reservation = new Reservation(vol,date, client, monService, boolPremClasse);
                     if (premiereClasse.equals("Oui"))
                         reservations.add(reservation);
                     System.out.println("Votre réservation a aboutit ! ");
@@ -257,7 +257,7 @@ public class Agence {
                         else
                             monService = new ServiceHauteGamme(monPremierHotel, monDeuxiemeHotel, maDeuxiemeVoiture);
                     }
-                    Reservation reservation = new Reservation(vol, client, monService, boolPremClasse);
+                    Reservation reservation = new Reservation(vol,date, client, monService, boolPremClasse);
                     reservations.add(reservation);
                     System.out.println("Votre réservation a aboutit ! ");
                     System.out.println("Voici le prix de votre réservation : ");
@@ -266,7 +266,7 @@ public class Agence {
 
             }
             if (reponse.equals("Non")) {
-                Reservation reservation = new Reservation(vol, client, boolPremClasse);
+                Reservation reservation = new Reservation(vol,date, client, boolPremClasse);
                 reservations.add(reservation);
                 System.out.println("Votre réservation a aboutit ! ");
                 System.out.println("Voici le prix de votre réservation : ");
@@ -341,7 +341,8 @@ public class Agence {
                 System.out.println("[Client : ID : " + res.getClient().getId()
                         +" Prenom : "+res.getClient().getPrenom()
                         +" Nom : "+ res.getClient().getNom()
-                        + ",Vol : " + res.getVol().getDestination()
+                        + ",Vol : " +res.getVol().getDepart()+"/"+res.getVol().getDestination()
+                        + ",Date : "+res.getDate()
                         + ",Prix : "+res.getMontant()+"€");
             }
         }
