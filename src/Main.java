@@ -19,7 +19,8 @@ public class Main {
             System.out.println("2 - Consulter une reservation");
             System.out.println("3 - Lister les reservations");
             System.out.println("4 - Sauvegarder");
-            System.out.println("5 - Quitter");
+            System.out.println("5 - Load une sauvegarde");
+            System.out.println("6 - Quitter");
             int reponse = sc.nextInt();
             switch (reponse){
                 case 1:
@@ -39,6 +40,13 @@ public class Main {
                     }
                     break;
                 case 5:
+                    try {
+                        agRep.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 6:
                     break loop;
                 default:
                     System.out.println("Choix incorrect");
