@@ -20,6 +20,12 @@ public class AgenceRepository {
     }
 
     public int save() throws IOException {
+        File current = new File("../save");
+        boolean folderCreated = current.mkdir();
+        if(folderCreated) {
+            System.out.println("Dossier de sauvegarde crée");
+        }
+
         System.out.println("Donner un nom à votre sauvegarde :");
         String saveName = b.readLine();
         File f = new File("../save/" + saveName + ".mysave");
