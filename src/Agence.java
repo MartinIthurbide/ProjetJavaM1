@@ -368,8 +368,8 @@ public class Agence {
     public void afficherReservation(Reservation res){
         System.out.println("##################");
         System.out.println("Client : ID : " + res.getClient().getId());
-        System.out.println(" Prenom : " + res.getClient().getPrenom());
-        System.out.println(", Nom : " + res.getClient().getNom());
+        System.out.println("Prenom : " + res.getClient().getPrenom());
+        System.out.println("Nom : " + res.getClient().getNom());
 
         System.out.println(" ");
 
