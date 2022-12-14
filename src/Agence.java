@@ -400,11 +400,11 @@ public class Agence {
 
         // Reservations
         for (Reservation reservation : reservations) {
-            sb.append(reservation.toString());
+            sb.append(reservation.toString() + "\n");
         }
 
         // Separateur
-        sb.append("\n|\n");
+        sb.append("|\n");
 
         // Vol
         for (Vol v : vols) {

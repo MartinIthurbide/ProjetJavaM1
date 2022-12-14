@@ -72,6 +72,7 @@ public class Reservation {
             sb.append("eco,");
         }
         sb.append(this.getVol().getDepart().toString() + ",");
+        sb.append(this.getEscale() + ",");
         sb.append(this.getVol().getDestination().toString() + ",");
         sb.append(this.getDate().toString() + ",");
         sb.append(this.getMontant());
