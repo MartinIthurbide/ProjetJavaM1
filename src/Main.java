@@ -41,7 +41,8 @@ public class Main {
                     break;
                 case 5:
                     try {
-                        agRep.load();
+                        agence = agRep.load();
+                        
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

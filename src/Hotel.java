@@ -28,7 +28,7 @@ public class Hotel {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("(Hotel:" + nom + "," + prix + "," + ville.toString() + ",");
+        sb.append("(Hotel:" + nom + ";" + prix + ";" + ville.toString() + ";");
         if(majoration) {
             sb.append("O");
         }

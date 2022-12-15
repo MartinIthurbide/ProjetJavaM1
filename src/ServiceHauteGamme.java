@@ -53,12 +53,15 @@ public class ServiceHauteGamme extends Service{
         sb.append("ServiceHauteGamme" + cnt + "(");
         if (cnt>=2) {
             sb.append(premierHotel.toString());
+            sb.append("#");
             sb.append(deuxiemeHotel.toString());
         }
         if(cnt >= 3) {
+            sb.append("#");
             sb.append(premiereVoiture.toString());
         }
         if(cnt == 4) {
+            sb.append("#");
             sb.append(deuxiemeVoiture.toString());
         }
 

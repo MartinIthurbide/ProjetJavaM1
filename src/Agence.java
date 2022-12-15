@@ -332,6 +332,35 @@ public class Agence {
         return vol;
     }
 
+    public Vol creerVolFile(Ville depart, Ville arrivee, Ville escale) throws Exception {
+        Vol vol = choisirVol(depart,arrivee);
+        if(escale != arrivee)
+            vol.setPrixEscale();
+        System.out.println("prix avant reduc : "+vol.getPrix()+"€");
+        int myPoolTicket = vol.getPoolTicket();
+        if(myPoolTicket > 0){
+            System.out.println("Vous disposez d'une réduction de 20% sur le prix du vol");
+            vol.setPrixReduction();
+            vol.reducePoolTicket();
+            System.out.println("prix apres reduc : "+vol.getPrix()+"€");
+        }
+        return vol;
+    }
+    
+
+    public Vol creerVolFile(Ville depart, Ville arrivee, int pooltickets, ArrayList<Hotel> hotels, ArrayList<Voiture> voitures, ArrayList<String> dates) {
+        // TODO
+        Vol v = new Vol(depart, arrivee, dates, hotels, voitures, pooltickets);
+        vols.add(v);
+        return v;
+    }
+
+    public void listerVol() {
+        for (Vol v : vols) {
+            System.out.println(v.toString());
+        }
+    }
+
     public int getNbReservations(){
         return reservations.size();
     }
@@ -399,19 +428,24 @@ public class Agence {
         sb.append(this.nom + ";\n");
 
         // Reservations
-        for (Reservation reservation : reservations) {
-            sb.append(reservation.toString() + "\n");
+        for (Vol v : vols) {
+            sb.append(v.toString()+ "\n");
         }
 
         // Separateur
         sb.append("|\n");
 
         // Vol
-        for (Vol v : vols) {
-            sb.append(v.toString()+ "\n");
+        for (Reservation reservation : reservations) {
+            sb.append(reservation.toString() + "\n");
         }
+        
 
         sb.append("}\n");
         return sb.toString();
+    }
+
+    public void addReservation(Reservation r) {
+        reservations.add(r);
     }
 }
