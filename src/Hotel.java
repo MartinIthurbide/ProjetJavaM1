@@ -38,4 +38,11 @@ public class Hotel {
         sb.append(")");
         return sb.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Hotel h = (Hotel) obj;
+        boolean e = (getNom() == h.getNom() && getPrix() == h.getPrix() && getVille() == h.getVille() && majoration == h.majoration);
+        return e;
+    }
 }

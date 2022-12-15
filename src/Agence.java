@@ -4,6 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 // AGGREGATE
 public class Agence {
+    private final int id;
     private String nom;
     private ArrayList<Reservation> reservations = new ArrayList<>();
     private ArrayList<Vol> vols = new ArrayList<>();
@@ -15,8 +16,17 @@ public class Agence {
             {true,true,true,false,false}
     };
     
-    public Agence(String nom){
+    public Agence(int id,String nom){
+        this.id = id;
         this.nom = nom;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNom() {
+        return nom;
     }
 
     public void listerDestinations(Ville depart){
@@ -351,10 +361,6 @@ public class Agence {
         return reservations.size();
     }
 
-    public ArrayList<Reservation> getReservations() {
-        return reservations;
-    }
-
     public void listerReservations(){
         if (getNbReservations() > 0) {
             for (Reservation res : reservations) {
@@ -404,10 +410,13 @@ public class Agence {
 
         System.out.println(" ");
 
-        if(res.getService().typeService())
-            System.out.println("Service : Service Simple");
-        if(!res.getService().typeService())
-            System.out.println("Service : Service de Haute Gamme");
+        if(res.getService() != null) {
+            if(res.getService().typeService())
+                System.out.println("Service : Service Simple");
+            if(!res.getService().typeService())
+                System.out.println("Service : Service de Haute Gamme");
+        }
+
         System.out.println("##################");
     }
 
@@ -415,7 +424,7 @@ public class Agence {
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append("{");
-        sb.append(this.nom + ";\n");
+        sb.append(this.id + "," + this.nom + ";\n");
 
         // Vols
         for (Vol v : vols) {

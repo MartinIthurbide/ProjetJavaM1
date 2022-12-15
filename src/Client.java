@@ -26,4 +26,11 @@ public class Client {
         String s = "Client:" + getId() + "," + getNom() + "," + getPrenom(); 
         return s;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Client c = (Client) obj;
+        boolean e = (getId() == c.getId() && getNom() == c.getNom() && getPrenom() == c.getPrenom());
+        return e;
+    }
 }

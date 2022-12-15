@@ -8,7 +8,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         AgenceRepository agRep = new AgenceRepository();
-        Agence agence = new Agence("TravellingAdventure");
+        int idAgence = 1;
+        Agence agence = new Agence(idAgence,"TravellingAdventure");
         agence.genererVols();
         agRep.addAgence(agence);
         System.out.println("Bonjour et Bienvenue sur notre site de reservation de voyage !");
@@ -45,11 +46,11 @@ public class Main {
                     break;
                 case 5:
                     try {
-                        
                         Agence newAgence = agRep.load();
                         agRep.removeAgence(agence);
                         agence = newAgence;
                         agRep.addAgence(agence);
+                        // agence.listerReservations();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

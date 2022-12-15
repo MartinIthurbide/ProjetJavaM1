@@ -27,4 +27,11 @@ public class Voiture {
         sb.append("(Voiture:" + nom + ";" + prix + ";" + ville.toString() + ")");
         return sb.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Voiture v = (Voiture) obj;
+        boolean e = (getNom() == v.getNom() && getPrix() == v.getPrix() && getVille() == v.getVille());
+        return e;
+    }
 }

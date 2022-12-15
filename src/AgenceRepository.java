@@ -16,29 +16,24 @@ public class AgenceRepository {
         agences.remove(a);
     }
 
-    public Client findClientById(String id) {
-        Client c = null;
+    public Agence findAgenceById(int id) {
         for (Agence a : agences) {
-            for (Reservation r : a.getReservations()) {
-                if(r.getClient().getId() == id) {
-                    c = new Client(id,r.getClient().getNom(), r.getClient().getPrenom());
-                }
+            if(a.getId() == id) {
+                return new Agence(id, a.getNom());
             }
         }
-        return c;
+        System.err.println("Aucune agence avec cet Id");
+        return null;
     }
 
-    public Client findClientByNom(String nom) {
-        Client c = null;
+    public Agence findAgenceByNom(String nom) {
         for (Agence a : agences) {
-            for (Reservation r : a.getReservations()) {
-                if(r.getClient().getNom() == nom) {
-                    c = new Client(r.getClient().getId(),nom, r.getClient().getPrenom());
-                    return c;
-                }
+            if(a.getNom() == nom) {
+                return new Agence(a.getId(), nom);
             }
         }
-        return c;
+        System.err.println("Aucune agence avec ce nom");
+        return null;
     }
 
     public int save() throws IOException {
@@ -118,11 +113,14 @@ public class AgenceRepository {
 
             // nom
             int index;
+            index = line.indexOf(",");
+            int idAgence = Integer.parseInt(line.substring(1,index));
+
             index = line.indexOf(';');
             String nom = line.substring(1, index);
 
             // Create Agence
-            a = new Agence(nom);
+            a = new Agence(idAgence,nom);
             
             // Vols
             while(!(line = br.readLine()).equals("|")) {
@@ -187,16 +185,23 @@ public class AgenceRepository {
                 // Create Client
                 Client c = new Client(id, nomClient, prenomClient);
 
-                boolean premierClasse = false;
+                boolean premiereClasse = false;
                 if(splitedLine[3].equals("premiere"))
-                    premierClasse = true;
+                    premiereClasse = true;
                 Ville departVol = Ville.stringToVille(splitedLine[4]);
                 Ville escaleVol = Ville.stringToVille(splitedLine[5]);
                 Ville destinationVol = Ville.stringToVille(splitedLine[6]);
 
 
                 String date = splitedLine[7];
-                float prix = Float.valueOf(splitedLine[8]);
+                float prix;
+                if(splitedLine.length > 9) {
+                    prix = Float.valueOf(splitedLine[8]);
+                }
+                else {
+                    prix = Float.valueOf(splitedLine[8].substring(0,splitedLine[8].length()-1)); 
+                }
+                
                 // FOR SURE now maybe not if no service
                 Service monService = null;
                 if(splitedLine.length > 9) {
@@ -270,7 +275,7 @@ public class AgenceRepository {
                 }
                 try {
                     Vol vol = a.creerVolFile(departVol,destinationVol,escaleVol);
-                    Reservation r = new Reservation(vol, date, c, monService, premierClasse, escaleVol);
+                    Reservation r = new Reservation(vol, date, c, monService, premiereClasse, escaleVol);
                     a.addReservation(r);
                 } catch (Exception e) {
                     e.printStackTrace();

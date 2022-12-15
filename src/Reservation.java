@@ -28,11 +28,20 @@ public class Reservation {
         this.service = service;
         this.escale = escale;
         this.premiereClasse = premiereClasse;
-        if (this.premiereClasse == true){
-            this.montant = (float) ((vol.getPrix()*1.30)+ service.getPrix());
+        if(service!=null) {
+            if (this.premiereClasse == true){
+                this.montant = (float) ((vol.getPrix()*1.30)+ service.getPrix());
+            }
+            else
+                this.montant = vol.getPrix()+ service.getPrix();
         }
-        else
-            this.montant = vol.getPrix()+ service.getPrix();
+        else {
+            if (this.premiereClasse == true){
+                this.montant = (float) ((vol.getPrix()*1.30));
+            }
+            else
+                this.montant = vol.getPrix();
+        }
     }
 
     public float getMontant() {
