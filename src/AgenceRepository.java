@@ -1,20 +1,13 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 
 public class AgenceRepository {
     private ArrayList<Agence> agences;
     private static BufferedReader b = new BufferedReader(new InputStreamReader(System.in));
-
     public AgenceRepository() {
         agences = new ArrayList<>();
     }
-    
+
     public void addAgence(Agence a) {
         agences.add(a);
     }
@@ -59,8 +52,11 @@ public class AgenceRepository {
         File f = new File("../save/" + fileToLoad);
 
         // File doesn't exist
-        if(!f.exists()) {
+        while(!f.exists()) {
             System.err.println("Ce fichier de sauvegarde n'existe pas");
+            System.out.println("Ecrire le bon fichier de sauvegarde : ");
+            fileToLoad = b.readLine();
+            f = new File("../save/" + fileToLoad);
         }
 
         // Invalid name or doesn't have right to read
@@ -103,7 +99,6 @@ public class AgenceRepository {
             while(!(line = br.readLine()).equals("|")) {
                 String[] splitedVol = line.split(",");
                 index = splitedVol[0].indexOf(":");
-                System.out.println("DEBUG VILLE " + splitedVol[0].substring(index+1, splitedVol[0].length()));
                 Ville depart = Ville.stringToVille(splitedVol[0].substring(index+1, splitedVol[0].length()));
                 
                 Ville destination = Ville.stringToVille(splitedVol[1]); 
@@ -121,7 +116,6 @@ public class AgenceRepository {
                 ArrayList<Hotel> hotels = new ArrayList<>();
 
                 String[] hotelsString = splitedVol[5].split("#");
-                // System.out.println(splitedVol[5]);
                 for (String h : hotelsString) {
                     String[] hotel = h.split(";");
                     index = hotel[0].indexOf(':');
@@ -154,15 +148,10 @@ public class AgenceRepository {
                 // Creer nouvelle fonction pour creerUnVol en spécifiant tous les paramètres
             }
 
-            a.listerVol();
-
             // Reservations
             while(!(line = br.readLine()).equals("}")) {
                 String id = line.substring(8,44);
                 String[] splitedLine = line.split(",");int i = 0;
-                // for (String s : splitedLine) {
-                //     System.out.println(i++ + " --> " + s);
-                // }
 
                 String nomClient = splitedLine[1];
                 String prenomClient = splitedLine[2];
@@ -201,7 +190,6 @@ public class AgenceRepository {
                             String nomSecondHotel = h2[0].substring(7,h2[0].length());
                             float prixSecondHotel = Float.valueOf(h2[1]);
                             Ville villeSecondHotel = Ville.stringToVille(h2[2]);
-                            // System.out.println("VilleSecondHotel = " + villeSecondHotel);
                             boolean majorationSecondHotel = (h2[3].substring(0,1).equals("O"))?true:false;
                             hotel2 = new Hotel(NomHotel.stringToNomHotel(nomSecondHotel),prixSecondHotel,villeSecondHotel,majorationSecondHotel);
                             
@@ -252,7 +240,7 @@ public class AgenceRepository {
                     }
                 }
                 try {
-                    Vol vol = a.creerVol(departVol,destinationVol,escaleVol);
+                    Vol vol = a.creerVolFile(departVol,destinationVol,escaleVol);
                     Reservation r = new Reservation(vol, date, c, monService, premierClasse, escaleVol);
                     a.addReservation(r);
                 } catch (Exception e) {
@@ -260,9 +248,6 @@ public class AgenceRepository {
                 }
                 
             }
-            // HANDLE VOLS
-            // System.out.println("line"  + line);
-            // WE ARE AT |
             break;
         }
 

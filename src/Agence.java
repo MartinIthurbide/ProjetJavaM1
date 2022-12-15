@@ -336,14 +336,6 @@ public class Agence {
         Vol vol = choisirVol(depart,arrivee);
         if(escale != arrivee)
             vol.setPrixEscale();
-        System.out.println("prix avant reduc : "+vol.getPrix()+"€");
-        int myPoolTicket = vol.getPoolTicket();
-        if(myPoolTicket > 0){
-            System.out.println("Vous disposez d'une réduction de 20% sur le prix du vol");
-            vol.setPrixReduction();
-            vol.reducePoolTicket();
-            System.out.println("prix apres reduc : "+vol.getPrix()+"€");
-        }
         return vol;
     }
     
@@ -353,12 +345,6 @@ public class Agence {
         Vol v = new Vol(depart, arrivee, dates, hotels, voitures, pooltickets);
         vols.add(v);
         return v;
-    }
-
-    public void listerVol() {
-        for (Vol v : vols) {
-            System.out.println(v.toString());
-        }
     }
 
     public int getNbReservations(){

@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -12,8 +13,6 @@ public class Main {
         agRep.addAgence(agence);
         System.out.println("Bonjour et Bienvenue sur notre site de reservation de voyage !");
         loop : while(true){
-            // TODO: faire les menus
-            // - Faire une reserv / - Les lister / - Quitter
             System.out.println("Choisissez ce que vous voulez : ");
             System.out.println("1 - Faire une reservation");
             System.out.println("2 - Consulter une reservation");
@@ -21,7 +20,13 @@ public class Main {
             System.out.println("4 - Sauvegarder");
             System.out.println("5 - Load une sauvegarde");
             System.out.println("6 - Quitter");
-            int reponse = sc.nextInt();
+            int reponse;
+            try {
+                reponse = sc.nextInt();
+            }catch (InputMismatchException e){
+                    System.out.println("Mauvaise réponse, veuillez saisir de nouveau : ");
+                    reponse = sc.nextInt();
+                }
             switch (reponse){
                 case 1:
                     agence.ajouterReservation();
