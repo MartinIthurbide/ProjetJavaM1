@@ -12,6 +12,35 @@ public class AgenceRepository {
         agences.add(a);
     }
 
+    public void removeAgence(Agence a) {
+        agences.remove(a);
+    }
+
+    public Client findClientById(String id) {
+        Client c = null;
+        for (Agence a : agences) {
+            for (Reservation r : a.getReservations()) {
+                if(r.getClient().getId() == id) {
+                    c = new Client(id,r.getClient().getNom(), r.getClient().getPrenom());
+                }
+            }
+        }
+        return c;
+    }
+
+    public Client findClientByNom(String nom) {
+        Client c = null;
+        for (Agence a : agences) {
+            for (Reservation r : a.getReservations()) {
+                if(r.getClient().getNom() == nom) {
+                    c = new Client(r.getClient().getId(),nom, r.getClient().getPrenom());
+                    return c;
+                }
+            }
+        }
+        return c;
+    }
+
     public int save() throws IOException {
         File current = new File("../save");
         boolean folderCreated = current.mkdir();

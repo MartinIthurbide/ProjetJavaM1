@@ -20,13 +20,12 @@ public class Main {
             System.out.println("4 - Sauvegarder");
             System.out.println("5 - Load une sauvegarde");
             System.out.println("6 - Quitter");
-            int reponse;
-            try {
-                reponse = sc.nextInt();
-            }catch (InputMismatchException e){
-                    System.out.println("Mauvaise réponse, veuillez saisir de nouveau : ");
-                    reponse = sc.nextInt();
-                }
+            String reponseString = "";
+            do {
+                System.out.println("Veuillez saisir le numéro correspondant à une action :");
+                reponseString = sc.nextLine();
+            } while(!(reponseString.matches("[1-6]") && reponseString.length() > 0));
+            int reponse = Integer.parseInt(reponseString);
             switch (reponse){
                 case 1:
                     agence.ajouterReservation();
@@ -46,8 +45,11 @@ public class Main {
                     break;
                 case 5:
                     try {
-                        agence = agRep.load();
                         
+                        Agence newAgence = agRep.load();
+                        agRep.removeAgence(agence);
+                        agence = newAgence;
+                        agRep.addAgence(agence);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

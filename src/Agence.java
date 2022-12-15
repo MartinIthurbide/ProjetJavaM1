@@ -351,6 +351,10 @@ public class Agence {
         return reservations.size();
     }
 
+    public ArrayList<Reservation> getReservations() {
+        return reservations;
+    }
+
     public void listerReservations(){
         if (getNbReservations() > 0) {
             for (Reservation res : reservations) {
@@ -413,7 +417,7 @@ public class Agence {
         sb.append("{");
         sb.append(this.nom + ";\n");
 
-        // Reservations
+        // Vols
         for (Vol v : vols) {
             sb.append(v.toString()+ "\n");
         }
@@ -421,7 +425,7 @@ public class Agence {
         // Separateur
         sb.append("|\n");
 
-        // Vol
+        // Reservations
         for (Reservation reservation : reservations) {
             sb.append(reservation.toString() + "\n");
         }
